@@ -1,0 +1,67 @@
+# compiled output
+back/api/dist
+back/api/node_modules
+back/api/build
+front/client/dist
+front/client/node_modules
+front/client/build
+
+# Logs
+logs
+**.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS
+.DS_Store
+
+# Tests
+back/api/coverage
+back/api/.nyc_output
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# dotenv environment variable files
+# api/.env
+back/api/.env.development.local
+back/api/.env.test.local
+back/api/.env.production.local
+back/api/.env.local
+back/api/.env
+front/client/.env
+front/client/.env.development.local
+front/client/.env.test.local
+front/client/.env.production.local
+front/client/.env.local
+
+# temp directory
+back/api/.temp
+back/api/.tmp
+front/client/.temp
+front/client/.tmp
+
+# Runtime data
+back/api/pids
+*.pid
+*.seed
+*.pid.lock
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
