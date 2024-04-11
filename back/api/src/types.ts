@@ -1,10 +1,10 @@
 import { Request } from 'express';
-import { User } from './users/entities/user.entity';
+import { User } from './auth/entities/user.entity';
 
 import { Socket } from 'socket.io';
 
 export interface AuthenticatedSocket extends Socket {
-  user?: User;
+  user?: { username: string; id: number };
 }
 
 export type CreateUserDetails = {

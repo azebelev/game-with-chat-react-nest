@@ -1,28 +1,29 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { PassportModule } from '@nestjs/passport';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { getDbConfig } from './config/db.config';
-import { GatewayGateway } from './gateway/gateway.gateway';
-import { UsersModule } from './users/users.module';
-import { AppController } from './app.controller';
+import { GameModule } from './game/game.module';
+import { GatewayModule } from './gateway/gateway.module';
 //const envFilePath = '.env';
 
 @Module({
   imports: [
     AuthModule,
-    UsersModule,
     ConfigModule.forRoot({ isGlobal: true }),
-    PassportModule.register({ session: true }),
+    EventEmitterModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: getDbConfig,
     }),
+    GatewayModule,
+    GameModule,
   ],
   controllers: [AppController],
-  providers: [AppService, GatewayGateway],
+  providers: [AppService],
 })
 export class AppModule {}

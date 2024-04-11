@@ -1,24 +1,16 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
-import { ValidateUserDetails } from 'src/types';
-import { UsersService } from 'src/users/users.service';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/auth/entities/user.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly userService: UsersService) {}
+  constructor(
+    @InjectRepository(User) private readonly userRepo: Repository<User>,
+  ) {}
 
-  async validateUser(userDetails: ValidateUserDetails) {
-    const user = await this.userService.findUser(
-      { email: userDetails.username },
-      { selectAll: true },
-    );
-    if (!user)
-      throw new HttpException('Invalid Credentials', HttpStatus.UNAUTHORIZED);
-    const isPasswordValid = await bcrypt.compare(
-      userDetails.password,
-      user.password,
-    );
-    console.log(isPasswordValid);
-    return isPasswordValid ? user : null;
+  async addUser(username: string) {
+    const user = this.userRepo.create({ username });
+    return await this.userRepo.save(user);
   }
 }
